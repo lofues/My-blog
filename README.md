@@ -1,2 +1,2 @@
 # My-blog
-A simple web blog maked by JS + CSS + HTML
+A simple web blog maked by JS + CSS + HTML in Linux
