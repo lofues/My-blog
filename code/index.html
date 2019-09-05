@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <style>
+        /* #layer1{
+            padding:0;
+            width:1140px;
+            overflow: hidden;
+            border:1px solid red;
+        }
+        #layer1 .lleft{
+            width:752px;
+            height:452px;
+            border: 1px solid red;
+            float:left;
+        }
+        #laryer1 .lright{
+            height:216px;
+            overflow: hidden;
+        }
+        #layer1 .lright .box{
+            float:left;
+            width:365px;
+            height:216px;
+            border:solid red 1px;
+            margin-left:18px;
+
+        }
+        #layer1 .lright .box:last-child{
+            margin-top:18px;
+        } */
+
+    </style>
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/jquery.min.js"></script>
+    <script src="js/system.js"></script>
+</head>
+
+<body>
+    <!-- 包括三层是为了在外层添加id内部的class类不会冲突 -->
+    <!-- 导航框封装在函数中重复使用 -->
+    <div id="layer1">
+        <div class="lleft">
+            <div class="swipe">
+                <img id="img" width="752" height="452" src="../images/banner01.jpg" alt="">
+                <img src="../images/l1-6.png" alt="" id="imgleft">
+                <img src="../images/r1-6.png" alt="" id="imgright">
+            </div>
+        </div>
+        <div class="lright">
+            <!-- 在js中编写box模板,将后台数据保存在数组中迭代添加 -->
+
+            <!-- <div class="box"> 
+                <div  class="title">Linux</div>       
+                <img src="../images/toppic01.jpg" width="365" height="216" alt="">
+                <p>Linux升级py3</p>
+            </div>
+            <div class="box">
+                <div class="title">Python</div>
+                <img src="../images/toppic02.jpg" width="365" height="216" alt="">
+                <p>精通Python编程---深入浅出教程</p>
+            </div> -->
+        </div>
+    </div>
+
+     
+<script>
+    // 页面接在完成事件中,添加导航栏
+    $(function () {
+        // 调用导航栏模板,追加到页面中
+        $("body").prepend($(index.nav.html(1)));
+        
+        var boxs = [{
+            title:"Linux",
+            url:'../images/toppic01.jpg',
+            p:'Linux升级py3'
+        },{
+            title:"Python3",
+            url:"../images/toppic02.jpg",
+            p:"精通Python教程,深入浅出"
+        }]
+
+        // 调用盒子模板,添加图片混合内容
+        $.each(boxs,function (i,v) {
+            $(".lright").append($(index.box.html(v.url,v.title,v.p)))
+        })
+        
+
+        // 保存大图切换的地址数组
+        var arrImg = [
+            "../images/banner01.jpg",
+            "../images/banner02.jpg",
+            "../images/banner03.jpg"
+        ]        
+        // 保存图片数组索引号变量
+        var i = 0;
+        // 分别绑定左右切换按钮事件
+        $("#imgleft").on("click",function () {
+            $("#img").fadeOut(1000,function () {
+                // 减少图片索引号
+                i--;
+                if(i<0)
+                    i = arrImg.length-1;
+                $(this).attr("src",arrImg[i]).fadeIn(1000)
+            });
+        })
+        $("#imgright").on("click",function () {            
+            $("#img").fadeOut(1000,function () {
+                // 增加图片索引号
+                i++;
+                if(i>arrImg.length-1)
+                    i = 0;
+                $(this).attr("src",arrImg[i]).fadeIn(1000)
+            });
+        })
+
+
+        
+    })
+
+    
+</script>
+</body>
+
+
+</html>
